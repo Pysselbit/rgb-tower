@@ -27,6 +27,18 @@ struct Vec3 {
     
     return Vec3(x, y, z);
   }
+
+  Vec3 operator -(const Vec3& v) {
+    float x = this->x - v.x;
+    float y = this->y - v.y;
+    float z = this->z - v.z;
+    
+    return Vec3(x, y, z);
+  }
+
+  float magnitude() {
+    return sqrt(x * x + y * y + z * z);
+  }
 };
 
 #endif
