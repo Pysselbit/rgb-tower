@@ -1,6 +1,7 @@
 
 #include "Vec3.h"
 #include "Color.h"
+#include "Light.h"
 
 class Room {
 
@@ -21,11 +22,11 @@ class Room {
     _position = Vec3(x, y, z);
   }
 
-  void update(Vec3 lightPosition, float lightRadius) {
-    float distance = (lightPosition - _position).magnitude();
-    float intensity = max(0.0f, (lightRadius - distance) / lightRadius);
+  void update(Light light) {
+    float distance = (light.position - _position).magnitude();
+    float intensity = max(0.0f, (light.radius - distance) / light.radius);
 
-    _color = Color(intensity);
+    _color = intensity * light.color;
   }
 
   void setLED(Strip* strip) {

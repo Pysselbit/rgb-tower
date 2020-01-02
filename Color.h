@@ -20,4 +20,12 @@ typedef struct Color {
   }
 };
 
+Color operator *(float f, const Color& c) {
+  return Color(f * c.r, f * c.g, f * c.b);
+}
+
+Color operator* (const Color& c, float f) {
+  return Color(f * c.r, f * c.g, f * c.b);
+}
+
 #endif

@@ -2,6 +2,7 @@
 #include "Strip.h"
 #include "Vec3.h"
 #include "Room.h"
+#include "Light.h"
 
 class Tower {
 
@@ -102,9 +103,9 @@ class Tower {
 
   Tower() {}
 
-  void update(Vec3 lightPosition, float lightRadius) {
+  void update(Light light) {
     for (int i = 0; i < ROOM_COUNT; i++)
-      _rooms[i].update(lightPosition, lightRadius);
+      _rooms[i].update(light);
   }
 
   void refreshLEDs() {
