@@ -22,14 +22,6 @@ class Strip {
   }
 
   void setRGB(int index, float r, float g, float b) {
-    uint32_t color;
-
-    color = (byte)(255.0f * r);
-    color <<= 8;
-    color |= (byte)(255.0f * g);
-    color <<= 8;
-    color |= (byte)(255.0f * b);
-    
-    _strip.setPixelColor(index, color);
+    _strip.setPixelColor(index, 255.0f * r, 255.0f * g, 255.0f * b);
   }
 };
