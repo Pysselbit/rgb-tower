@@ -1,3 +1,4 @@
+
 #include "Adafruit_WS2801.h"
 
 class Strip {

@@ -1,37 +1,24 @@
-#include "Strip.h"
+
+#include "Color.h"
+#include "Tower.h"
 
 class Animation {
 
-  Strip _strip;
+  Tower _tower;
 
-  int _index;
-  
-  float _lastIncrement;
-  
   public:
   
-  Animation() {
-    _index = 0;
-  }
+  Animation() {}
 
   void update(float time, float deltaTime) {
-    if (time - _lastIncrement > 0.2f) {
-      increment();
-      _lastIncrement = time;
-    }
-  }
+    float x = 1.0f * cos(time);
+    float y = 2.5 * (1.0 + sin(time));
+    float z = 1.0f * sin(time);
 
-  private:
+    Vec3 lightPosition = Vec3(x, y, z);
+    float lightRadius = 1.0f;
 
-  void increment() {
-    float r = _index % 3 == 0 ? 1.0f : 0.0f;
-    float g = _index % 3 == 1 ? 1.0f : 0.0f;
-    float b = _index % 3 == 2 ? 1.0f : 0.0f;
-    
-    _strip.setRGB(_index, 0.0f, 0.0f, 0.0f);
-    _index = (_index + 1) % _strip.LED_COUNT;
-    _strip.setRGB(_index, r, g, b);
-
-    _strip.refresh();
+    _tower.update(lightPosition, lightRadius);
+    _tower.refreshLEDs();
   }
 };
