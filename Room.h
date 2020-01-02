@@ -28,7 +28,7 @@ class Room {
     _color = Color(intensity);
   }
 
-  void setLED(Strip strip) {
-    strip.setRGB(_stripIndex, _color.r, _color.g, _color.b);
+  void setLED(Strip* strip) {
+    strip->setRGB(_stripIndex, _color.r, _color.g, _color.b);
   }
 };

@@ -109,7 +109,7 @@ class Tower {
 
   void refreshLEDs() {
     for (int i = 0; i < ROOM_COUNT; i++)
-      _rooms[i].setLED(_strip);
+      _rooms[i].setLED(&_strip);
 
     _strip.refresh();
   }
