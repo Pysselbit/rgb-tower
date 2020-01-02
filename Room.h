@@ -22,10 +22,10 @@ class Room {
   }
 
   void update(Vec3 lightPosition, float lightRadius) {
-    if ((lightPosition - _position).magnitude() <= lightRadius)
-      _color = Color(1.0f, 1.0f, 1.0f);
-    else
-      _color = Color();
+    float distance = (lightPosition - _position).magnitude();
+    float intensity = max(0.0f, (lightRadius - distance) / lightRadius);
+
+    _color = Color(intensity);
   }
 
   void setLED(Strip strip) {

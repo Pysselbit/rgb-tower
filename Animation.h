@@ -12,7 +12,7 @@ class Animation {
 
   void update(float time, float deltaTime) {
     float x = 1.0f * cos(time);
-    float y = 2.5 * (1.0 + sin(time));
+    float y = 2.5f * (1.0 + sin(time));
     float z = 1.0f * sin(time);
 
     Vec3 lightPosition = Vec3(x, y, z);

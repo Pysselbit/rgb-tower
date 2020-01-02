@@ -9,6 +9,10 @@ typedef struct Color {
     r = g = b = 0.0f;
   }
 
+  Color(float rgb) {
+    r = g = b = rgb;
+  }
+
   Color(float r, float g, float b) {
     this->r = r;
     this->g = g;
