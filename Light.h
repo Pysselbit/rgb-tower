@@ -6,9 +6,13 @@
 #include "Color.h"
 
 struct Light {
-  Color color;
   Vec3 position;
   float radius;
+  
+  Color innerColor;
+  Color outerColor;
+
+  bool shiftOuterColor;
 };
 
 #endif

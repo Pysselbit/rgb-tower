@@ -5,29 +5,83 @@
 
 class Animation {
 
-  Tower _tower;
+  const float TOWER_RADIUS = 1.0f;
+  
+  const float Y_MIN = 0.5f;
+  const float Y_MAX = 3.5f;
+  
+  const float RADIUS_MIN = 1.2f;
+  const float RADIUS_MAX = 2.0f;
 
-  Light _light;
+  Tower _tower;
 
   public:
   
   Animation() {}
 
-  void update(float time, float deltaTime) {
-    float r = (1.0f + cos(1.0f * time)) / 2.0f;
-    float g = (1.0f + cos(3.0f * time)) / 2.0f;
-    float b = (1.0f + cos(5.0f * time)) / 2.0f;
+  void update() {
+    float time = (float)millis() / 1000.0f;
+  
+    Light lightA, lightB;
 
-    _light.color = Color(r, g, b);
+    // Color components:
+    float a = 1.0f * ((1.0f + cos(time)) / 2.0f);
+    float b = 0.5f * ((1.0f + cos(0.8f * time)) / 2.0f);
+    float c = 0.5f * ((1.0f + cos(0.6f * time)) / 2.0f);
+
+    Color innerColor = Color(1.0f, 0.6f, 0.1f); // Inner color stays yellow.
+    Color outerColor = getWarmestColor(a, b, c);
+
+    lightA.innerColor = lightB.innerColor = innerColor;
+    lightA.outerColor = lightB.outerColor = outerColor;
+
+    // Positions:
+    float x = TOWER_RADIUS * cos(0.65f * time);
+    float y = (1.0f + sin(0.25f * time)) / 2.0f;
+    float z = TOWER_RADIUS * sin(0.65f * time);
     
-    float x = 1.0f * cos(time);
-    float y = 2.5f * (1.0f + sin(0.7f * time));
-    float z = 1.0f * sin(time);
+    float yA = Y_MIN + (Y_MAX - Y_MIN) * y;
+    float yB = Y_MIN + (Y_MAX - Y_MIN) * (1.0f - y);
 
-    _light.position = Vec3(x, y, z);
-    _light.radius = 1.0f;
+    lightA.position = Vec3(x, yA, z);
+    lightB.position = Vec3(-x, yB, -z);
 
-    _tower.update(_light);
+    // Radii of light spheres (bigger when further apart):
+    float yDifference = abs(yA - yB) / (Y_MAX - Y_MIN);
+    float radiusFactor = RADIUS_MIN + yDifference * (RADIUS_MAX - RADIUS_MIN);
+    lightA.radius = radiusFactor * (0.7f + 0.3f * sin(0.25f * time));
+    lightB.radius = radiusFactor * (0.7f - 0.3f * sin(0.25f * time));
+
+    lightA.shiftOuterColor = false;
+    lightB.shiftOuterColor = true;
+
+    Light lights[] = {lightA, lightB};
+
+    _tower.updateLights(lights, 2);
     _tower.refreshLEDs();
+  }
+
+  private:
+
+  // Rearrange components and makes the biggest component r, and smallest g:
+  Color getWarmestColor(float a, float b, float c) {
+    if (a > b && a > c) {
+      if (b > c)
+        return Color(a, c, b);
+      else
+        return Color(a, b, c);
+    }
+    else if (b > a && b > c) {
+      if (a > c)
+        return Color(b, c, a);
+      else
+        return Color(b, a, c);
+    }
+    else {
+      if (a > b)
+        return Color(c, b, a);
+      else
+        return Color(c, a, b);
+    }
   }
 };

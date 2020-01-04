@@ -103,9 +103,9 @@ class Tower {
 
   Tower() {}
 
-  void update(Light light) {
+  void updateLights(Light lights[], int lightCount) {
     for (int i = 0; i < ROOM_COUNT; i++)
-      _rooms[i].update(light);
+      _rooms[i].updateLights(lights, lightCount);
   }
 
   void refreshLEDs() {
