@@ -30,6 +30,5 @@ Arduino sketch controlling an RGB LED strip inside a building model. A colorful 
 </pre>
 
 Board: **Arduino Uno**  
+Arduino version: **1.8.10**  
 Adafruit WS2801 version: **1.0.1**  
-
-
