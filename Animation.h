@@ -23,6 +23,7 @@ class Animation {
 
   void update() {
     float time = (float)(millis() % RESET_MILLIS) / 1000.0f;
+    time /= 5.0f;
   
     Light lightA, lightB;
 
@@ -32,7 +33,7 @@ class Animation {
     float c = 0.5f * ((1.0f + cos(0.6f * time)) / 2.0f);
 
     Color innerColor = Color(1.0f, 0.6f, 0.1f); // Inner color stays yellow.
-    Color outerColor = getWarmestColor(a, b, c);
+    Color outerColor = Color(1.0f, 0.2f, 0.1f); // Outer color stays red.
 
     lightA.innerColor = lightB.innerColor = innerColor;
     lightA.outerColor = lightB.outerColor = outerColor;
@@ -55,11 +56,11 @@ class Animation {
     lightB.radius = radiusFactor * (0.7f - 0.3f * sin(0.25f * time));
 
     lightA.shiftOuterColor = false;
-    lightB.shiftOuterColor = true;
+    lightB.shiftOuterColor = false;
 
     Light lights[] = {lightA, lightB};
 
-    _tower.updateLights(lights, 2);
+    _tower.updateLights(lights, 1);
     _tower.refreshLEDs();
   }
 

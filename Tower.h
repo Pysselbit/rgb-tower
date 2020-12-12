@@ -40,46 +40,46 @@ class Tower {
   static const int ROOM_COUNT = 34;
 
   // LEDs facing east (positive X):
-  const int INDEX_XP_Y0_ZN = 30;
-  const int INDEX_XP_Y0_ZP = 44;
-  const int INDEX_XP_Y1_ZN = 31;
-  const int INDEX_XP_Y1_ZP = 43;
-  const int INDEX_XP_Y2_ZN = 32;
-  const int INDEX_XP_Y2_ZP = 42;
-  const int INDEX_XP_Y3_ZN = 33;
-  const int INDEX_XP_Y3_ZP = 41;
+  const int INDEX_XP_Y0_ZN = 13;//30;
+  const int INDEX_XP_Y0_ZP = 31;//44;
+  const int INDEX_XP_Y1_ZN = 4;//31;
+  const int INDEX_XP_Y1_ZP = 20;//43;
+  const int INDEX_XP_Y2_ZN = 5;//32;
+  const int INDEX_XP_Y2_ZP = 21;//42;
+  const int INDEX_XP_Y3_ZN = 23;//33;
+  const int INDEX_XP_Y3_ZP = 29;//41;
   
   // LEDs facing north (positive Z):
-  const int INDEX_ZP_Y0_XP = 4;
-  const int INDEX_ZP_Y0_XN = 12;
-  const int INDEX_ZP_Y1_XP = 5;
-  const int INDEX_ZP_Y1_XN = 11;
-  const int INDEX_ZP_Y2_XP = 6;
-  const int INDEX_ZP_Y2_XN = 10;
-  const int INDEX_ZP_Y3_XP = 7;
-  const int INDEX_ZP_Y3_XN = 9;
-  const int INDEX_ZP_Y4 = 8;
+  const int INDEX_ZP_Y0_XP = 14;//4;
+  const int INDEX_ZP_Y0_XN = 15;//12;
+  const int INDEX_ZP_Y1_XP = 32;//5;
+  const int INDEX_ZP_Y1_XN = 42;//11;
+  const int INDEX_ZP_Y2_XP = 9;//6;
+  const int INDEX_ZP_Y2_XN = 44;//10;
+  const int INDEX_ZP_Y3_XP = 33;//7;
+  const int INDEX_ZP_Y3_XN = 24;//9;
+  const int INDEX_ZP_Y4 = 17;//8;
 
   // LEDs facing west (negative X):
-  const int INDEX_XN_Y0_ZP = 13;
-  const int INDEX_XN_Y0_ZN = 20;
-  const int INDEX_XN_Y1_ZP = 14;
-  const int INDEX_XN_Y1_ZN = 19;
-  const int INDEX_XN_Y2_ZP = 15;
-  const int INDEX_XN_Y2_ZN = 18;
-  const int INDEX_XN_Y3_ZP = 16;
-  const int INDEX_XN_Y3_ZN = 17;
+  const int INDEX_XN_Y0_ZP = 22;//13;
+  const int INDEX_XN_Y0_ZN = 6;//20;
+  const int INDEX_XN_Y1_ZP = 18;//14;
+  const int INDEX_XN_Y1_ZN = 11;//19;
+  const int INDEX_XN_Y2_ZP = 28;//15;
+  const int INDEX_XN_Y2_ZN = 30;//18;
+  const int INDEX_XN_Y3_ZP = 25;//16;
+  const int INDEX_XN_Y3_ZN = 10;//17;
   
   // LEDs facing south (negative Z):
-  const int INDEX_ZN_Y0_XN = 21;
-  const int INDEX_ZN_Y0_XP = 29;
-  const int INDEX_ZN_Y1_XN = 22;
-  const int INDEX_ZN_Y1_XP = 28;
-  const int INDEX_ZN_Y2_XN = 23;
-  const int INDEX_ZN_Y2_XP = 27;
-  const int INDEX_ZN_Y3_XN = 24;
-  const int INDEX_ZN_Y3_XP = 26;
-  const int INDEX_ZN_Y4 = 25;
+  const int INDEX_ZN_Y0_XN = 27;//21;
+  const int INDEX_ZN_Y0_XP = 41;//29;
+  const int INDEX_ZN_Y1_XN = 8;//22;
+  const int INDEX_ZN_Y1_XP = 26;//28;
+  const int INDEX_ZN_Y2_XN = 43;//23;
+  const int INDEX_ZN_Y2_XP = 16;//27;
+  const int INDEX_ZN_Y3_XN = 19;//24;
+  const int INDEX_ZN_Y3_XP = 7;//26;
+  const int INDEX_ZN_Y4 = 12;//25;
 
   // Cylindrical coordinates used to place LEDs:
   const float RADIUS = 1.0f;
