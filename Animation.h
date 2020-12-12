@@ -13,6 +13,8 @@ class Animation {
   const float RADIUS_MIN = 1.2f;
   const float RADIUS_MAX = 2.0f;
 
+  const unsigned long RESET_MILLIS = 86400000ul; // 24 h: 24 * 60 * 60 * 1000.
+
   Tower _tower;
 
   public:
@@ -20,7 +22,7 @@ class Animation {
   Animation() {}
 
   void update() {
-    float time = (float)millis() / 1000.0f;
+    float time = (float)(millis() % RESET_MILLIS) / 1000.0f;
   
     Light lightA, lightB;
 
