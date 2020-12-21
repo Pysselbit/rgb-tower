@@ -13,6 +13,10 @@ class Animation {
   const float RADIUS_MIN = 1.2f;
   const float RADIUS_MAX = 2.0f;
 
+  const long FADE_TIME = 1.0f;
+  const long SWITCH_TIME_MIN_MILLIS = 120000l; // 2 min: 2 * 60 * 1000;
+  const long SWITCH_TIME_MAX_MILLIS = 600000l; // 10 min: 10 * 60 * 1000;
+
   const unsigned long RESET_MILLIS = 86400000ul; // 24 h: 24 * 60 * 60 * 1000.
 
   Tower _tower;
@@ -22,8 +26,26 @@ class Animation {
   Animation() {}
 
   void update() {
-    float time = (float)(millis() % RESET_MILLIS) / 1000.0f;
-    time /= 5.0f;
+    long timeMillis = millis() % RESET_MILLIS;
+
+    if (timeMillis > nextLedOrderSwitch) {
+      ledOrder = (ledOrder + 1) % 4;
+
+      previousLedOrderSwitch = nextLedOrderSwitch;
+      nextLedOrderSwitch = timeMillis + random(SWITCH_TIME_MIN_MILLIS, SWITCH_TIME_MAX_MILLIS);
+    }
+
+    if (nextLedOrderSwitch - timeMillis > 2 * SWITCH_TIME_MAX_MILLIS)
+      nextLedOrderSwitch = 0l; // On reset.
+    
+    float time = (float)timeMillis / 1000.0f;
+    
+    float globalIntensity = min(1.0f, min(nextLedOrderSwitch / 1000.0f - time, time - previousLedOrderSwitch / 1000.0f) / FADE_TIME);
+
+    bool isRandomOrder = ledOrder % 2 == 1;
+
+    if (isRandomOrder)
+      time /= 3.0f;
   
     Light lightA, lightB;
 
@@ -33,7 +55,9 @@ class Animation {
     float c = 0.5f * ((1.0f + cos(0.6f * time)) / 2.0f);
 
     Color innerColor = Color(1.0f, 0.6f, 0.1f); // Inner color stays yellow.
-    Color outerColor = Color(1.0f, 0.2f, 0.1f); // Outer color stays red.
+    Color outerColor = getWarmestColor(a, b, c);
+    if (isRandomOrder)
+      outerColor = Color(1.0f, 0.2f, 0.1f); // Outer color stays red.
 
     lightA.innerColor = lightB.innerColor = innerColor;
     lightA.outerColor = lightB.outerColor = outerColor;
@@ -60,11 +84,15 @@ class Animation {
 
     Light lights[] = {lightA, lightB};
 
-    _tower.updateLights(lights, 1);
-    _tower.refreshLEDs();
+    _tower.updateLights(lights, 2, globalIntensity);
+    _tower.refreshLEDs(ledOrder == 3 ? 1 : ledOrder);
   }
 
   private:
+
+  byte ledOrder;
+  long nextLedOrderSwitch;
+  long previousLedOrderSwitch;
 
   // Rearrange components and makes the biggest component r, and smallest g:
   Color getWarmestColor(float a, float b, float c) {

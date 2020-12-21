@@ -37,49 +37,49 @@
 //
 class Tower {
 
-  static const int ROOM_COUNT = 34;
+  static const byte ROOM_COUNT = 34;
 
   // LEDs facing east (positive X):
-  const int INDEX_XP_Y0_ZN = 13;//30;
-  const int INDEX_XP_Y0_ZP = 31;//44;
-  const int INDEX_XP_Y1_ZN = 4;//31;
-  const int INDEX_XP_Y1_ZP = 20;//43;
-  const int INDEX_XP_Y2_ZN = 5;//32;
-  const int INDEX_XP_Y2_ZP = 21;//42;
-  const int INDEX_XP_Y3_ZN = 23;//33;
-  const int INDEX_XP_Y3_ZP = 29;//41;
+  const byte INDEX_XP_Y0_ZN[3] = {30, 13, 44};
+  const byte INDEX_XP_Y0_ZP[3] = {44, 31, 30};
+  const byte INDEX_XP_Y1_ZN[3] = {31, 4, 31};
+  const byte INDEX_XP_Y1_ZP[3] = {43, 20, 43};
+  const byte INDEX_XP_Y2_ZN[3] = {32, 5, 42};
+  const byte INDEX_XP_Y2_ZP[3] = {42, 21, 32};
+  const byte INDEX_XP_Y3_ZN[3] = {33, 23, 33};
+  const byte INDEX_XP_Y3_ZP[3] = {41, 29, 41};
   
   // LEDs facing north (positive Z):
-  const int INDEX_ZP_Y0_XP = 14;//4;
-  const int INDEX_ZP_Y0_XN = 15;//12;
-  const int INDEX_ZP_Y1_XP = 32;//5;
-  const int INDEX_ZP_Y1_XN = 42;//11;
-  const int INDEX_ZP_Y2_XP = 9;//6;
-  const int INDEX_ZP_Y2_XN = 44;//10;
-  const int INDEX_ZP_Y3_XP = 33;//7;
-  const int INDEX_ZP_Y3_XN = 24;//9;
-  const int INDEX_ZP_Y4 = 17;//8;
+  const byte INDEX_ZP_Y0_XP[3] = {4, 14, 29};
+  const byte INDEX_ZP_Y0_XN[3] = {12, 15, 21};
+  const byte INDEX_ZP_Y1_XP[3] = {5, 32, 5};
+  const byte INDEX_ZP_Y1_XN[3] = {11, 42, 11};
+  const byte INDEX_ZP_Y2_XP[3] = {6, 9, 27};
+  const byte INDEX_ZP_Y2_XN[3] = {10, 44, 23};
+  const byte INDEX_ZP_Y3_XP[3] = {7, 33, 7};
+  const byte INDEX_ZP_Y3_XN[3] = {9, 24, 9};
+  const byte INDEX_ZP_Y4[3] = {8, 17, 8};
 
   // LEDs facing west (negative X):
-  const int INDEX_XN_Y0_ZP = 22;//13;
-  const int INDEX_XN_Y0_ZN = 6;//20;
-  const int INDEX_XN_Y1_ZP = 18;//14;
-  const int INDEX_XN_Y1_ZN = 11;//19;
-  const int INDEX_XN_Y2_ZP = 28;//15;
-  const int INDEX_XN_Y2_ZN = 30;//18;
-  const int INDEX_XN_Y3_ZP = 25;//16;
-  const int INDEX_XN_Y3_ZN = 10;//17;
+  const byte INDEX_XN_Y0_ZP[3] = {13, 22, 20};
+  const byte INDEX_XN_Y0_ZN[3] = {20, 6, 13};
+  const byte INDEX_XN_Y1_ZP[3] = {14, 18, 14};
+  const byte INDEX_XN_Y1_ZN[3] = {19, 11, 19};
+  const byte INDEX_XN_Y2_ZP[3] = {15, 28, 18};
+  const byte INDEX_XN_Y2_ZN[3] = {18, 30, 15};
+  const byte INDEX_XN_Y3_ZP[3] = {16, 25, 16};
+  const byte INDEX_XN_Y3_ZN[3] = {17, 10, 17};
   
   // LEDs facing south (negative Z):
-  const int INDEX_ZN_Y0_XN = 27;//21;
-  const int INDEX_ZN_Y0_XP = 41;//29;
-  const int INDEX_ZN_Y1_XN = 8;//22;
-  const int INDEX_ZN_Y1_XP = 26;//28;
-  const int INDEX_ZN_Y2_XN = 43;//23;
-  const int INDEX_ZN_Y2_XP = 16;//27;
-  const int INDEX_ZN_Y3_XN = 19;//24;
-  const int INDEX_ZN_Y3_XP = 7;//26;
-  const int INDEX_ZN_Y4 = 12;//25;
+  const byte INDEX_ZN_Y0_XN[3] = {21, 27, 12};
+  const byte INDEX_ZN_Y0_XP[3] = {29, 41, 4};
+  const byte INDEX_ZN_Y1_XN[3] = {22, 8, 22};
+  const byte INDEX_ZN_Y1_XP[3] = {28, 26, 28};
+  const byte INDEX_ZN_Y2_XN[3] = {23, 43, 10};
+  const byte INDEX_ZN_Y2_XP[3] = {27, 16, 6};
+  const byte INDEX_ZN_Y3_XN[3] = {24, 19, 24};
+  const byte INDEX_ZN_Y3_XP[3] = {26, 7, 26};
+  const byte INDEX_ZN_Y4[3] = {25, 12, 25};
 
   // Cylindrical coordinates used to place LEDs:
   const float RADIUS = 1.0f;
@@ -134,14 +134,14 @@ class Tower {
 
   Tower() {}
 
-  void updateLights(Light lights[], int lightCount) {
+  void updateLights(Light lights[], int lightCount, float globalIntensity) {
     for (int i = 0; i < ROOM_COUNT; i++)
-      _rooms[i].updateLights(lights, lightCount);
+      _rooms[i].updateLights(lights, lightCount, globalIntensity);
   }
 
-  void refreshLEDs() {
+  void refreshLEDs(byte ledOrder) {
     for (int i = 0; i < ROOM_COUNT; i++)
-      _rooms[i].setLED(&_strip);
+      _rooms[i].setLED(&_strip, ledOrder);
 
     _strip.refresh();
   }

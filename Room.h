@@ -5,7 +5,7 @@
 
 class Room {
 
-  int _stripIndex;
+  byte _stripIndices[3];
 
   Vec3 _position;
   Color _color;
@@ -14,8 +14,9 @@ class Room {
 
   public:
   
-  Room(int stripIndex, float radius, float angle, int floor) {
-    _stripIndex = stripIndex;
+  Room(byte stripIndices[], float radius, float angle, int floor) {
+    for (byte i = 0; i < 3; i++)
+      _stripIndices[i] = stripIndices[i];
     
     float x = radius * cos(angle);
     float y = (float)floor + 0.5f;
@@ -26,7 +27,7 @@ class Room {
     _colorShift = random(3);
   }
 
-  void updateLights(Light lights[], int lightCount) {
+  void updateLights(Light lights[], int lightCount, float globalIntensity) {
     _color = Color(0.0f);
     
     for (int i = 0; i < lightCount; i++) {
@@ -46,13 +47,13 @@ class Room {
       float intensity = max(0.0f, (light.radius - distance) / light.radius);
 
       float t = pow(1.0f - intensity, 2.0f);
-      Color color = min(20.0f * intensity, 1.0f) * Color::interpolate(innerColor, outerColor, t);
+      Color color = globalIntensity * intensity * Color::interpolate(innerColor, outerColor, t);
 
       _color = _color + color;
     }
   }
 
-  void setLED(Strip* strip) {
-    strip->setRGB(_stripIndex, _color.r, _color.g, _color.b);
+  void setLED(Strip* strip, byte ledOrder) {
+    strip->setRGB(_stripIndices[ledOrder], _color.r, _color.g, _color.b);
   }
 };
