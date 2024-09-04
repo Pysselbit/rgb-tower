@@ -55,9 +55,7 @@ class Animation {
     float c = 0.5f * ((1.0f + cos(0.6f * time)) / 2.0f);
 
     Color innerColor = Color(1.0f, 0.6f, 0.1f); // Inner color stays yellow.
-    Color outerColor = getWarmestColor(a, b, c);
-    if (isRandomOrder)
-      outerColor = Color(1.0f, 0.2f, 0.1f); // Outer color stays red.
+    Color outerColor = Color(1.0f, 0.2f, 0.1f); // Outer color stays red.
 
     lightA.innerColor = lightB.innerColor = innerColor;
     lightA.outerColor = lightB.outerColor = outerColor;
