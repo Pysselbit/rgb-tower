@@ -10,8 +10,8 @@ class Animation {
   const float Y_MIN = 0.5f;
   const float Y_MAX = 3.5f;
   
-  const float RADIUS_MIN = 1.2f;
-  const float RADIUS_MAX = 2.0f;
+  const float RADIUS_MIN = 1.5f;
+  const float RADIUS_MAX = 2.25f;
 
   const long FADE_TIME = 1.0f;
   const long SWITCH_TIME_MIN_MILLIS = 120000l; // 2 min: 2 * 60 * 1000;
@@ -61,9 +61,9 @@ class Animation {
     lightA.outerColor = lightB.outerColor = outerColor;
 
     // Positions:
-    float x = TOWER_RADIUS * cos(0.65f * time);
-    float y = (1.0f + sin(0.25f * time)) / 2.0f;
-    float z = TOWER_RADIUS * sin(0.65f * time);
+    float x = TOWER_RADIUS * cos(0.8f * time);
+    float y = (1.0f + sin(0.3f * time)) / 2.0f;
+    float z = TOWER_RADIUS * sin(0.8f * time);
     
     float yA = Y_MIN + (Y_MAX - Y_MIN) * y;
     float yB = Y_MIN + (Y_MAX - Y_MIN) * (1.0f - y);
