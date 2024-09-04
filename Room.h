@@ -47,6 +47,9 @@ class Room {
       float intensity = max(0.0f, (light.radius - distance) / light.radius);
 
       float t = pow(1.0f - intensity, 2.0f);
+
+      intensity = 0.5f - cos(PI * intensity) / 2.0f; // Increase smoothness.
+      
       Color color = globalIntensity * intensity * Color::interpolate(innerColor, outerColor, t);
 
       _color = _color + color;
